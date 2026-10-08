@@ -15,4 +15,4 @@ jobs:
       - name: Run the action from another repository
         uses: sfdcale/ep-lab-action@main
         with:
-          project: help
+          project: billing
