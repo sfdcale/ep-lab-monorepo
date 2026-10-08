@@ -1,0 +1,18 @@
+name: Demo action from another repository
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  demo:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Run the action from another repository
+        uses: rale_sfemu/ep-lab-action@main
+        with:
+          project: help
