@@ -13,6 +13,6 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Run the action from another repository
-        uses: rale_sfemu/ep-lab-action@main
+        uses: sfdcale/ep-lab-action@main
         with:
           project: help

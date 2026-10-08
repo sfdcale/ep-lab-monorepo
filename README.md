@@ -1,6 +1,6 @@
 # EP Lab Consumer
 
-This repository calls the action in [ep-lab-action](https://github.com/rale_sfemu/ep-lab-action). Open [the workflow](.github/workflows/demo.yml) to see its cross-repository `uses:` line.
+This repository calls the action in [ep-lab-action](https://github.com/sfdcale/ep-lab-action). Open [the workflow](.github/workflows/demo.yml) to see its cross-repository `uses:` line.
 
 ## First GitHub exercise
 
@@ -8,7 +8,7 @@ This repository calls the action in [ep-lab-action](https://github.com/rale_sfem
 2. Commit directly to `main`.
 3. Open the repository's **Actions** tab and select the new **Demo action from another repository** run.
 
-The log should say `Hello billing — lab v1` and show Node 24. This workflow currently refers to `rale_sfemu/ep-lab-action@main`, so it follows the action repository's current `main` branch. That makes the first lesson convenient, but the reference can change over time.
+The log should say `Hello billing — lab v1` and show Node 24. This workflow currently refers to `sfdcale/ep-lab-action@main`, so it follows the action repository's current `main` branch. That makes the first lesson convenient, but the reference can change over time.
 
 Later, replace `main` with a full commit SHA and compare the behavior. A SHA fixes the action revision the consumer runs.
 
