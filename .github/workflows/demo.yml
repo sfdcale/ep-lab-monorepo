@@ -1,4 +1,4 @@
-name: Demo action from another repository
+name: Demo reusable workflow
 
 on:
   push:
@@ -9,10 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  demo:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Run the action from another repository
-        uses: sfdcale/ep-lab-action@b149a0d2f5d75fa2c51e63129f737366f3ffd7d4
-        with:
-          project: billing
+  call-build:
+    uses: sfdcale/ep-lab-workflows/.github/workflows/build-projects.yml@main
+    with:
+      affected-plan: '["base","help"]'
