@@ -13,6 +13,6 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Run the action from another repository
-        uses: sfdcale/ep-lab-action@3bc96605d08d16ba72f694861fb11ab573af1ac6
+        uses: sfdcale/ep-lab-action@dfb64a91c6672e8588da62e775daa34523c9e6da
         with:
           project: billing
