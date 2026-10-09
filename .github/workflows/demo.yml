@@ -9,7 +9,16 @@ permissions:
   contents: read
 
 jobs:
+  discover:
+    runs-on: ubuntu-24.04
+    outputs:
+      affected_plan: ${{ steps.plan.outputs.affected_plan }}
+    steps:
+      - id: plan
+        run: echo 'affected_plan=["base1","help1"]' >> "$GITHUB_OUTPUT"
+
   call-build:
+    needs: discover
     uses: sfdcale/ep-lab-workflows/.github/workflows/build-projects.yml@main
     with:
-      affected-plan: '["base","help"]'
+      affected-plan: ${{ needs.discover.outputs.affected_plan }}
