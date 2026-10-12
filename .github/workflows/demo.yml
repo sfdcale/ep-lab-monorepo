@@ -1,4 +1,4 @@
-name: Demo reusable workflow
+name: Discover affected projects and run shared workflow
 
 on:
   push:
@@ -14,12 +14,19 @@ jobs:
     outputs:
       affected_plan: ${{ steps.plan.outputs.affected_plan }}
     steps:
-      - id: plan
-        run: echo 'affected_plan=["base","help"]' >> "$GITHUB_OUTPUT"
+      - name: Check out full history for diff planning
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Discover affected projects
+        id: plan
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: node scripts/discover-projects.mjs
 
   call-build:
     needs: discover
     uses: sfdcale/ep-lab-workflows/.github/workflows/build-projects.yml@main
     with:
       affected-plan: ${{ needs.discover.outputs.affected_plan }}
-      

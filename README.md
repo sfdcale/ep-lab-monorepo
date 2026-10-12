@@ -1,15 +1,21 @@
 # EP Lab Consumer
 
-This repository calls the action in [ep-lab-action](https://github.com/sfdcale/ep-lab-action). Open [the workflow](.github/workflows/demo.yml) to see its cross-repository `uses:` line.
+This public playground calls a reusable workflow, which runs the pinned action in [ep-lab-action](https://github.com/sfdcale/ep-lab-action).
 
-## First GitHub exercise
+## Affected-project exercise
 
-1. Edit `project: help` to `project: billing` in the GitHub web editor.
-2. Commit directly to `main`.
-3. Open the repository's **Actions** tab and select the new **Demo action from another repository** run.
+The project graph lives in `project-dependencies.json`:
 
-The log should say `Hello billing — lab v1` and show Node 24. This workflow currently refers to `sfdcale/ep-lab-action@main`, so it follows the action repository's current `main` branch. That makes the first lesson convenient, but the reference can change over time.
+- `help` depends on `base`.
+- `billing` has no in-repository dependencies.
 
-Later, replace `main` with a full commit SHA and compare the behavior. A SHA fixes the action revision the consumer runs.
+On each push to `main`, the `discover` job compares the previous commit with the current commit. It emits a JSON project list through `GITHUB_OUTPUT`; the caller passes that value to the reusable workflow, which converts it into a matrix.
 
-An action-repository push does not trigger this repository's workflow. Change this workflow or use **Run workflow** in the Actions tab when you want a new consumer run.
+Expected plans:
+
+- Change a file under `src/base/`: `base`, `help`.
+- Change a file under `src/help/`: `help`.
+- Change a file under `src/billing/`: `billing`.
+- Change `project-dependencies.json` or files outside `src/`: all projects, because their impact is not scoped to a single project.
+
+The matrix jobs can run in parallel. The project list is ordered for stable output, but it does not enforce dependency order.
