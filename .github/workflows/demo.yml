@@ -15,10 +15,11 @@ jobs:
       affected_plan: ${{ steps.plan.outputs.affected_plan }}
     steps:
       - id: plan
-        run: echo 'affected_plan=["base1","help1"]' >> "$GITHUB_OUTPUT"
+        run: echo 'affected_plan=["base","help"]' >> "$GITHUB_OUTPUT"
 
   call-build:
     needs: discover
     uses: sfdcale/ep-lab-workflows/.github/workflows/build-projects.yml@main
     with:
       affected-plan: ${{ needs.discover.outputs.affected_plan }}
+      
